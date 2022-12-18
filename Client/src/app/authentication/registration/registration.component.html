@@ -1,0 +1,77 @@
+<div class="container">
+    <h1 class="text-center">Register</h1>
+    <div class="row">
+        <div class="col-md-4 offset-md-4">
+            <form #form = "ngForm" (ngSubmit)="handleRegister(form)">
+                <div>
+                    <label for="firstName">First Name</label>
+                    <input type="text"
+                            name="firstName"
+                            class="form-control"
+                            ngModel
+                            #firstName="ngModel"
+                            minlength="3"
+                            maxlength="20"
+                            required>
+                </div>
+                <div>
+                    <label for="lastName">Last Name</label>
+                    <input type="text"
+                            name="lastName"
+                            class="form-control"
+                            ngModel
+                            #lastName="ngModel"
+                            maxlength="20"
+                            required>
+                </div>
+                <div>
+                    <label for="email">Email</label>
+                    <input type="email"
+                            name="email"
+                            class="form-control"
+                            ngModel
+                            #email="ngModel"
+                            minlength="6"
+                            maxlength="50"
+                            required>
+                </div>
+                <div>
+                    <label for="phoneNumber">Phone</label>
+                    <input type="text"
+                            name="phoneNumber"
+                            class="form-control"
+                            ngModel
+                            #phone="ngModel"
+                            minlength="3"
+                            maxlength="12"
+                            required>
+                </div>
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password"
+                            name="password"
+                            class="form-control"
+                            ngModel
+                            #password="ngModel"
+                            minlength="8"
+                            maxlength="30"
+                            required>
+                </div>
+                <div>
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password"
+                            name="confirmPassword"
+                            class="form-control"
+                            ngModel
+                            #confirmPassword="ngModel"
+                            minlength="8"
+                            maxlength="30"
+                            required>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

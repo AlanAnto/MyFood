@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyFood.Data;
 
@@ -11,9 +12,11 @@ using MyFood.Data;
 namespace MyFood.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221218155346_UpdatingTables")]
+    partial class UpdatingTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,6 +277,7 @@ namespace MyFood.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("OrderId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<bool>("OrderPlaced")
@@ -413,7 +417,9 @@ namespace MyFood.Migrations
 
                     b.HasOne("MyFood.Models.Order", "Order")
                         .WithMany()
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("MyFood.Models.ApplicationUser", "User")
                         .WithMany("FoodItemOrders")

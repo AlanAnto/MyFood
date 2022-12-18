@@ -14,11 +14,11 @@ namespace MyFood.Models.RequestModels
         public string LastName { get; set; }
 
         [Required]
-        [StringLength(50)]
+        [StringLength(50, MinimumLength = 6)]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(10)]
+        [StringLength(12, MinimumLength =3)]
         public string PhoneNumber { get; set; }
 
         [Required]

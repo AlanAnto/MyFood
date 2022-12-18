@@ -1,0 +1,31 @@
+<div class="container">
+    <h1 class="text-center">Login</h1>
+    <div class="col-md-4 offset-md-4">
+        <form #form="ngForm">
+            <div>
+                <label for="email">Email</label>
+                <input type="email"
+                        class="form-control"
+                        ngModel
+                        #email="ngModel"
+                        minlength="5"
+                        maxlength="25"
+                        required>
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="password"
+                        class="form-control"
+                        ngModel
+                        #password="ngModel"
+                        minlength="8"
+                        maxlength="25"
+                        required>
+            </div>
+
+            <div>
+                <button class="btn btn-primary">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
