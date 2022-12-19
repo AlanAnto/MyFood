@@ -2,11 +2,11 @@
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FoodsController : ControllerBase
+    public class FoodController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
 
-        public FoodsController(ApplicationDbContext db)
+        public FoodController(ApplicationDbContext db)
         {
             _db = db;
         }

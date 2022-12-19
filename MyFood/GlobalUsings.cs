@@ -10,8 +10,6 @@ global using Microsoft.AspNetCore.Http;
 global using Microsoft.AspNetCore.Mvc;
 global using MyFood.Data;
 global using MyFood.Models;
-global using Microsoft.AspNetCore.Http;
-global using Microsoft.AspNetCore.Mvc;
 global using MyFood.Models.RequestModels;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using MyFood.Models;

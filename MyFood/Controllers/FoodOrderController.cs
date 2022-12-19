@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-
-namespace MyFood.Controllers
+﻿namespace MyFood.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -16,7 +13,22 @@ namespace MyFood.Controllers
             _userManager = userManager;
         }
 
+        [HttpGet("GetCart")]
+        [ProducesResponseType(typeof(IEnumerable<FoodOrder>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Nullable),StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<IEnumerable<FoodOrder>>> GetCart()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var addedFood = await _db.FoodOrders.Where(m => (m.UserId == user.Id) && (!m.OrderPlaced)).ToListAsync();
+            if (addedFood == null)
+            {
+                return BadRequest();
+            }
+            return addedFood;
+        }
+
         [HttpPost("PlaceToCart")]
+        [ProducesResponseType(typeof(FoodOrder),StatusCodes.Status200OK)]
         public async Task<IActionResult> PlaceFoodToCart(FoodOrderModel model)
         {
             var food = await _db.Foods.FindAsync(model.FoodId);
@@ -35,6 +47,7 @@ namespace MyFood.Controllers
         }
 
         [HttpDelete("RemoveFromCart")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveFromCart(int id)
         {
             var orderItem = await _db.FoodOrders.FindAsync(id);

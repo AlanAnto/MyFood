@@ -57,6 +57,7 @@ namespace MyFood.Controllers
             return BadRequest();
         }
 
+
         //public async Task<string> GenerateToken(ApplicationUser user)
         //{
         //    var roles = await _userManager.GetRolesAsync(user);
