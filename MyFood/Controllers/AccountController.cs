@@ -59,7 +59,7 @@ namespace MyFood.Controllers
 
 
         
-        [HttpGet("userprofile")]
+        [HttpGet("UserProfile")]
         
         public async Task<IActionResult> GetOne()
         {
@@ -70,9 +70,9 @@ namespace MyFood.Controllers
             }
             return Ok(user);
         }
-        [HttpPut("updateuser")]
+        [HttpPut("UpdateUser")]
 
-        public async Task<IActionResult> Update(ApplicationUser model)
+        public async Task<IActionResult> Update(RegisterModel model)
         {
             var res = await _userManager.GetUserAsync(User);
             if (res == null)
@@ -86,7 +86,7 @@ namespace MyFood.Controllers
            await _db.SaveChangesAsync();
             return Ok(res);
         }
-        [HttpDelete("deleteuser")]
+        [HttpDelete("DeleteUser")]
         public async Task<IActionResult> Delete()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -99,7 +99,7 @@ namespace MyFood.Controllers
             await _db.SaveChangesAsync();
             return Ok();
         }
-        [HttpGet("getroles")]
+        [HttpGet("Getroles")]
         public async Task<IActionResult> GenerateRoles()
         {
             await _roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
