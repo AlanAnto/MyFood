@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import jwt_decode from "jwt-decode";
+
 
 @Component({
   selector: 'public-navbar',
@@ -6,5 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-
+  ngOnInit(){
+    var token:any = localStorage.getItem('token');
+    var parsedToken = jwt_decode(token);
+    console.log(parsedToken);
+  }
 }

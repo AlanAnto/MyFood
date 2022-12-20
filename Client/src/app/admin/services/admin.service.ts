@@ -5,17 +5,12 @@ import StaticDetails from 'src/Data/StaticDetails';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class AdminService {
 
   constructor(private http:HttpClient) { }
-  
-  login(data:any)
-  {
-    return this.http.post(`${StaticDetails.API_URL}/Account/Login`,data);
-  }
 
-  register(data:any)
+  editProfile(data:any)
   {
-    return this.http.post(`${StaticDetails.API_URL}/Account/Register`,data);
+    return this.http.put(`${StaticDetails.API_URL}/Account/Update`,data);
   }
 }

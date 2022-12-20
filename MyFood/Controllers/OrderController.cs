@@ -31,6 +31,18 @@
             return order;
         }
 
+        //[HttpGet]
+        //public async Task<IActionResult> ViewOrders()
+        //{
+        //    var user = await _userManager.GetUserAsync(User);
+        //    var orders = await _db.Orders.Where(m => m.UserId == user.Id).ToListAsync();
+        //    foreach (var item in orders)
+        //    {
+
+        //    }
+            
+        //}
+
         [HttpPost]
         public async Task<IActionResult> PlaceOrder(OrderModel model)
         {

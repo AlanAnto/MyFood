@@ -10,7 +10,8 @@ export class RegistrationComponent {
 
   constructor(private authService:AuthenticationService){}
 
-  handleRegister(form:any){
+  handleRegister(form:any)
+  {
     console.log(form.value);
     this.authService.register(form.value).subscribe(res=>{
       console.log(res);

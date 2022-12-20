@@ -1,8 +1,6 @@
-﻿using System.Data;
-
-namespace MyFood.Models.RequestModels
+﻿namespace MyFood.Models.RequestModels
 {
-    public class RegisterModel
+    public class UpdateModel
     {
         public string FirstName { get; set; }
 
@@ -11,10 +9,5 @@ namespace MyFood.Models.RequestModels
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
-
-        public string Password { get; set; }
-
-        public string ConfirmPassword { get; set; }
-
     }
 }
