@@ -1,40 +1,82 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.Tokens;
+using NuGet.Protocol.Plugins;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace MyFood.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    
     public class AccountController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly IConfiguration _configuration;
 
-        public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,RoleManager<IdentityRole> roleManager)
+        public AccountController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
+            RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _configuration = configuration;
         }
-
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
-            if (user == null)
+            if (user == null) return BadRequest();
+
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, true);
+            if (!result.Succeeded)
+                return BadRequest(new
+                {
+                    Success = false,
+                    Message = "Invalid email / password."
+                });
+
+            var token = GenerateToken(user);
+
+            return Ok(new
             {
-                ModelState.AddModelError("", "Email not Registered.");
-                return NotFound();
-            }
-            var res = await _signInManager.PasswordSignInAsync(user, model.Password, true, true);
-            if (!res.Succeeded)
-            {
-                return BadRequest();
-            }
-            return Ok("Login Successful");
+                Data = token,
+                Message = "Login Successful"
+            });
+        }
+
+        private string GenerateToken(ApplicationUser user)
+        {
+
+            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]));
+            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+
+            //claim is used to add identity to JWT token
+            var claims = new[] {
+            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            new Claim(JwtRegisteredClaimNames.Email, user.Email),
+            new Claim(ClaimTypes.Role,_userManager.GetRolesAsync(user).Result.First()),
+            new Claim("Date", DateTime.Now.ToString()),
+            new Claim(ClaimTypes.NameIdentifier,user.Id)
+        };
+
+            var token = new JwtSecurityToken(_configuration["Jwt:Issuer"],
+                _configuration["Jwt:Audience"],
+                claims,    //null original value
+                expires: DateTime.Now.AddMinutes(120),
+
+                //notBefore:
+                signingCredentials: credentials);
+
+            var data = new JwtSecurityTokenHandler().WriteToken(token); //return access token 
+            return data;
         }
 
         [HttpPost("Register")]
@@ -60,36 +102,58 @@ namespace MyFood.Controllers
 
         
         [HttpGet("UserProfile")]
-        
+        [Authorize(Roles = "User")]
+
         public async Task<IActionResult> GetOne()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if(user==null)
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            Console.WriteLine(userId);
+
+            var user = await _userManager.FindByIdAsync(userId);
+            Console.WriteLine(user.Email);
+
+
+            if (user == null)
             {
                 return NotFound();
             }
             return Ok(user);
         }
-        [HttpPut("UpdateUser")]
 
-        public async Task<IActionResult> Update(RegisterModel model)
+
+        [HttpPut("UpdateUser")]
+        [Authorize(Roles = "User")]
+
+        public async Task<IActionResult> Update(UpdateModel model)
         {
-            var res = await _userManager.GetUserAsync(User);
-            if (res == null)
+
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            Console.WriteLine(userId);
+
+            var user = await _userManager.FindByIdAsync(userId);
+            Console.WriteLine(user.FirstName);
+            
+            if (user == null)
                 return NotFound();
-            res.FirstName = model.FirstName;
-            res.LastName = model.LastName;
-            res.Email = model.Email;
-            res.PhoneNumber = model.PhoneNumber;
+            user.FirstName = model.FirstName;
+            user.LastName = model.LastName;
+            user.Email = model.Email;
+            user.PhoneNumber = model.PhoneNumber;
 
             
            await _db.SaveChangesAsync();
-            return Ok(res);
+            return Ok(user);
         }
         [HttpDelete("DeleteUser")]
+        [Authorize(Roles = "User")]
         public async Task<IActionResult> Delete()
+
         {
-            var user = await _userManager.GetUserAsync(User);
+            string userId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            Console.WriteLine(userId);
+
+            var user = await _userManager.FindByIdAsync(userId);
+            Console.WriteLine(user.FirstName);
             if (user == null)
             {
                 return NotFound();

@@ -14,11 +14,11 @@ namespace MyFood.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AdminController(ApplicationDbContext db,UserManager<ApplicationUser> userManager,RoleManager<IdentityRole> roleManager,SignInManager<ApplicationUser> signInManager)
+        public AdminController(ApplicationDbContext db, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager)
         {
             _db = db;
             _userManager = userManager;
-            _roleManager = roleManager;
+            _roleManager = roleManager; 
             _signInManager = signInManager;
         }
 
@@ -58,15 +58,22 @@ namespace MyFood.Controllers
         [HttpPost("locationadd")]
         public async Task<IActionResult> Location(string location)
         {
-           await _db.Locations.AddAsync( new Location()
+            await _db.Locations.AddAsync(new Location()
             {
 
-                LocationName= location,
+                LocationName = location,
             });
 
             await _db.SaveChangesAsync();
             return Ok();
         }
+        //[HttpPost("ViewTransaction")]
+        //public async Task<IActionResult> ViewTransaction()
+        //{
 
-}
-}
+        //}
+
+    
+    }
+
+    }
