@@ -4,7 +4,7 @@ namespace MyFood.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -25,12 +25,19 @@ namespace MyFood.Controllers
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ApplicationUser>>> ViewUsers()
         {
-            if (_db.Foods == null)
+            if (_db.Users == null)
             {
                 return NotFound();
             }
-            return await _db.Users.ToListAsync();
+            var allUsers = await _db.Users.ToListAsync();
+
+            return Ok(new ResponseModel<IEnumerable<ApplicationUser>>()
+            {
+                Data = allUsers,
+            });
         }
+
+
         [HttpPost("AddLocation")]
         public async Task<IActionResult> AddLocation(string location)
         {

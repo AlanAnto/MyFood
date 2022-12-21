@@ -9,6 +9,8 @@ import { AuthenticationService } from '../services/authentication.service';
 })
 export class LoginComponent {
 
+  message :  string = '';
+
   constructor(private authService:AuthenticationService, private route:Router){}
 
   handleLogin(form:any){
@@ -16,8 +18,15 @@ export class LoginComponent {
     this.authService.login(form.value).subscribe((res:any)=>{
       if(res.success){
         localStorage.setItem('token', res.data);
-        alert("Login successfull");
-        this.route.navigate(["/"]);
+        alert("Login successfull");let role=  JSON.parse(atob(res.data.split('.')[1]))['Role'];
+        console.log(role);
+        console.log(localStorage.getItem('token'));
+        if(role=="User"){
+          this.route.navigate(["/user/home"]);
+        }
+        else if(role=="Admin"){
+          this.route.navigate(["admin/home"]);
+        }
       }
     })
   }

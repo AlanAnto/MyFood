@@ -92,7 +92,10 @@
                 Email = logedinuser.Email,
                 PhoneNumber = logedinuser.PhoneNumber
             };
-            return Ok(user);
+            return Ok(new ResponseModel<UpdateModel>()
+            {
+                Data = user,
+            });
         }
 
         //Updating User Details

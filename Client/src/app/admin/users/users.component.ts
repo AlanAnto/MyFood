@@ -8,7 +8,15 @@ import { AdminService } from '../services/admin.service';
 })
 export class UsersComponent 
 {
-  constructor (private adminService:AdminService){}
+    users : any;
 
+  constructor (private adminService:AdminService){}
+  
+  ngOnInit(){
+    this.adminService.getUsers().subscribe((res:any)=>{
+      console.log(res);
+      this.users = res;
+    })
+  }
   
 }

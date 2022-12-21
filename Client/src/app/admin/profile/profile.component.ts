@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,Input } from '@angular/core';
 import { AdminService } from '../services/admin.service';
 
 @Component({
@@ -8,7 +8,26 @@ import { AdminService } from '../services/admin.service';
 })
 export class ProfileComponent {
 
+  data:any;
+
+  user = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneNumber: ''
+  };
+
   constructor(private adminService:AdminService){}
+
+  ngOnInit(){
+    this.data = this.adminService.getProfile().subscribe((res:any)=>{
+      this.data = res.data;
+      this.user.firstName = this.data.firstName;
+      this.user.lastName = this.data.lastName;
+      this.user.email = this.data.email;
+      this.user.phoneNumber = this.data.phoneNumber;
+    })
+  }
 
   handleEdit(form:any)
   {
@@ -16,6 +35,6 @@ export class ProfileComponent {
     this.adminService.editProfile(form.value).subscribe(res =>
       {
         console.log(res);
-      });
+      }); 
   }
 }

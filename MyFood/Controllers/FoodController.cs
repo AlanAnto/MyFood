@@ -44,6 +44,29 @@
             return food;
         }
 
+        // GET : Food/Name
+        [HttpGet("{Name}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Food>> FoodSearch(string name)
+        {
+            if (_db.Foods == null)
+            {
+                return NotFound();
+            }
+            var food = await _db.Foods.Where(m => (m.Name.Contains(name))).ToListAsync();
+
+            if (food == null)
+            {
+                return NotFound();
+            }
+            return Ok(new ResponseModel<IEnumerable<Food>>()
+            {
+                Data = food,
+            });
+        }
+
+        // PUT: api/Foods/5
+
         // PUT: Food/id
         [HttpPut("Edit/{id}")]
         public async Task<IActionResult> PutFood(int id, Food food)
