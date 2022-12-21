@@ -7,6 +7,9 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { PublicModule } from './public/public.module';
+import { FoodModule } from './food/food.module';
+import { UserModule } from './user/user.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -19,7 +22,10 @@ import { PublicModule } from './public/public.module';
     AdminModule,
     AuthModule,
     NgbModule,
+    FoodModule,
     PublicModule,
+    UserModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

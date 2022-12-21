@@ -1,0 +1,63 @@
+.container,.row{
+
+    margin: 0;
+
+    padding: 0;
+
+    width: 100vw;
+
+    max-width: 100%;
+
+    background-color: black;
+
+}
+
+.card{
+
+margin-top: 70px;
+
+margin-bottom: 70px;
+
+border-radius: 20px;
+
+
+
+}
+
+.col-sm-10{
+
+  background-image: url("/assets/images/img1.jpg");
+
+  background-repeat: no-repeat;
+
+  height: 100vh;
+
+  object-fit: fill;
+
+  background-size: 90vw 100vh;
+
+  margin-left: 90px;
+
+  margin-right: 90px;
+
+  border-radius: 20px;
+
+
+
+}
+
+.col-sm-6{
+
+background-color: rgba(0,0,0,0.1);
+
+align-items: center;
+
+}
+
+.form-control{
+
+  width: 300px;
+
+
+
+}

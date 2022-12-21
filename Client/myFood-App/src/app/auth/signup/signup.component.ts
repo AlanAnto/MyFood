@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
@@ -8,7 +10,12 @@ import { NgForm } from '@angular/forms';
 })
 export class SignupComponent {
   message:string='';
-  checkLogin(form: NgForm){
-		
+  constructor(private authService : AuthService,
+    private roter: Router){}
+  handleSignup(form: NgForm){
+    console.log(form.value);
+		return this.authService.register(form.value).subscribe(res=>{
+      console.log(res);
+    });
 	}
 }

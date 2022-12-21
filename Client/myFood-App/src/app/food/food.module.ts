@@ -3,14 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { FoodRoutingModule } from './food-routing.module';
 import { DisplayItemComponent } from './display-item/display-item.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { ItemListComponent } from './item-list/item-list.component';
 
 
 @NgModule({
   declarations: [
-    DisplayItemComponent
+    DisplayItemComponent,
+    ItemListComponent
   ],
   imports: [
     CommonModule,
+    BrowserModule,
     FoodRoutingModule
   ]
 })

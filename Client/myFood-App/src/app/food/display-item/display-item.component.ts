@@ -6,5 +6,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./display-item.component.css']
 })
 export class DisplayItemComponent {
+  quantity:number=0;
+  dis:string="disabled:true";
+  
+ 
 
+
+
+  increaseQuantity(){
+    this.quantity++;
+    if(this.quantity>=4){
+      console.log(this.quantity)
+    }
+    else{
+      // this.disable=false;
+    }
+  }
+  decreaseQuantity(){
+    this.quantity--;
+  }
 }
