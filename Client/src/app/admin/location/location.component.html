@@ -1,7 +1,7 @@
 <div class="container">
     <div class="img">
         <div class="mb-3 col-3 card">
-            <form #form="ngForm"  class="mt-5 bg-light " >
+            <form #form="ngForm" (ngSubmit)="handleAddLocation(form)" class="mt-5 bg-light " >
                 <div>
                 <label class="form-label "><h3>Add Location</h3></label>
                 <input  id="Location" type="text"ngModel #Location="ngModel" name="Location"  class="form-control" type="text" required >

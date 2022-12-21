@@ -12,6 +12,7 @@ import { TransactionsComponent } from './transactions/transactions.component';
 import { LocationComponent } from './location/location.component';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { PublicModule } from '../public/public.module';
+import { AddfoodComponent } from './addfood/addfood.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PublicModule } from '../public/public.module';
     MenuComponent,
     TransactionsComponent,
     LocationComponent,
-    AdminLayoutComponent
+    AdminLayoutComponent,
+    AddfoodComponent
   ],
   imports: [
     CommonModule,

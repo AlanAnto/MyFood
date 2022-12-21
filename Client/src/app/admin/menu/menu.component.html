@@ -1,1 +1,24 @@
-<p>menu works!</p>
+<div class="container">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Food Type</th>
+                <th>Price</th>
+                <th>Availability</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of menu">
+                <td><span>{{item.id}}</span></td>
+                <td><span>{{item.name}}</span></td>
+                <td><span>{{item.description}}</span></td>
+                <td><span>{{item.foodType}}</span></td>
+                <td><span>{{item.price}}</span></td>
+                <td><span>{{item.availability}}</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

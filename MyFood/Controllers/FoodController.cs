@@ -17,11 +17,16 @@
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
         {
-          if (_db.Foods == null)
-          {
-              return NotFound();
-          }
-            return await _db.Foods.ToListAsync();
+          
+            if (_db.Foods == null)
+            {
+                 return NotFound();
+            }
+            var menu =  await _db.Foods.ToListAsync();
+            return Ok(new ResponseModel<IEnumerable<Food>>()
+            {
+                Data = menu
+            });
         }
 
         // GET : Food/id
@@ -101,7 +106,7 @@
         [HttpPost("AddFood")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<Food>> PostFood(Food food)
+        public async Task<ActionResult<Food>> AddFood(Food food)
         {
           if (_db.Foods == null)
           {

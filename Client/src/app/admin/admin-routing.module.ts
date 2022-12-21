@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddfoodComponent } from './addfood/addfood.component';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { HomeComponent } from './home/home.component';
 import { LocationComponent } from './location/location.component';
+import { MenuComponent } from './menu/menu.component';
 import { ProfileComponent } from './profile/profile.component';
 import { UsersComponent } from './users/users.component';
 
@@ -13,6 +15,8 @@ const routes: Routes = [
       {path:'profile',component:ProfileComponent},
       {path:'users',component:UsersComponent},
       {path:'location',component:LocationComponent},
+      {path:'menu',component:MenuComponent},
+      {path:'addfood',component:AddfoodComponent},
     ]
   }
 ];

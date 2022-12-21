@@ -21,4 +21,16 @@ export class AdminService {
   getUsers(){
     return this.http.get(`${StaticDetails.API_URL}/Admin/ViewUsers`);
   }
+
+  getMenu(){
+    return this.http.get(`${StaticDetails.API_URL}/Food/Menu`);
+  }
+
+  addFood(data:any){
+    return this.http.post(`${StaticDetails.API_URL}/Food/AddFood`,data);
+  }
+
+  addLocation(data:any){
+    return this.http.post(`${StaticDetails.API_URL}/Admin/AddLocation`,data);
+  }
 }

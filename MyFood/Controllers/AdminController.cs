@@ -1,10 +1,8 @@
-﻿using Microsoft.AspNetCore.Authorization;
-
-namespace MyFood.Controllers
+﻿namespace MyFood.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     public class AdminController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -30,15 +28,23 @@ namespace MyFood.Controllers
                 return NotFound();
             }
             var allUsers = await _db.Users.ToListAsync();
-
-            return Ok(new ResponseModel<IEnumerable<ApplicationUser>>()
+            var users = new List<UpdateModel>();
+            foreach (var item in allUsers)
             {
-                Data = allUsers,
-            });
+                var user = new UpdateModel()
+                {
+                    FirstName = item.FirstName,
+                    LastName = item.LastName,
+                    Email = item.Email,
+                    PhoneNumber = item.PhoneNumber
+                };
+                users.Append(user);
+            }
+            return Ok(allUsers);
         }
 
-
         [HttpPost("AddLocation")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddLocation(string location)
         {
             await _db.Locations.AddAsync(new Location()

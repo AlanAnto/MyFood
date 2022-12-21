@@ -22,3 +22,4 @@ global using Microsoft.AspNetCore.Authorization;
 global using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Mvc.Routing;
+global using Microsoft.AspNetCore.Authorization;
