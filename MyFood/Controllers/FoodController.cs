@@ -86,7 +86,6 @@
           }
             _db.Foods.Add(food);
             await _db.SaveChangesAsync();
-
             return CreatedAtAction("GetFood", new { id = food.Id }, food);
         }
 

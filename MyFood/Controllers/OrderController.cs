@@ -2,6 +2,7 @@
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
@@ -13,10 +14,11 @@
             _userManager = userManager;
         }
 
+        //Get One Order Details
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(Order),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Order>> ShowOrder(int id)
+        public async Task<ActionResult<Order>> GetOneOrder(int id)
         {
             if (_db.Orders == null)
             {
@@ -43,10 +45,12 @@
             
         //}
 
-        [HttpPost]
+        //Placing Orders
+        [HttpPost("PlaceOrder")]
         public async Task<IActionResult> PlaceOrder(OrderModel model)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByNameAsync(userName);
             var addedFood = await _db.FoodOrders.Where(m => (m.UserId == user.Id)&&(!m.OrderPlaced)).ToListAsync();
             double totalPrice = 0; 
             foreach (var item in addedFood)
@@ -60,7 +64,8 @@
                 TotalPrice = totalPrice,
                 OrderDate = DateTime.Now,
                 Date = model.Date,
-                OrderLocation = model.OrderLocation
+                OrderLocation = model.OrderLocation,
+                Address = model.Address
             };
             await _db.AddAsync(order);
             await _db.SaveChangesAsync();

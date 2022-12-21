@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-
-namespace MyFood.Controllers
+﻿namespace MyFood.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -30,6 +26,7 @@ namespace MyFood.Controllers
 
         //User Login
         [HttpPost("Login")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Login(LoginModel model)
@@ -58,6 +55,7 @@ namespace MyFood.Controllers
 
         // Register User
         [HttpPost("Register")]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register(RegisterModel model)
@@ -79,8 +77,27 @@ namespace MyFood.Controllers
             return BadRequest();
         }
 
+        //Get User Details
+        [HttpGet("GetUser")]
+        [Authorize]
+        [ProducesResponseType(typeof(UpdateModel),StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetUser()
+        {
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var logedinuser = await _userManager.FindByNameAsync(userName);
+            var user = new UpdateModel()
+            {
+                FirstName = logedinuser.FirstName,
+                LastName = logedinuser.LastName,
+                Email = logedinuser.Email,
+                PhoneNumber = logedinuser.PhoneNumber
+            };
+            return Ok(user);
+        }
+
         //Updating User Details
         [HttpPut("Update")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(UpdateModel model)
         {
@@ -96,6 +113,7 @@ namespace MyFood.Controllers
 
         //Deleting User Account
         [HttpDelete("DeleteUser")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete()
         {
@@ -120,6 +138,7 @@ namespace MyFood.Controllers
             {
                 new(ClaimTypes.NameIdentifier, user.UserName),
                 new(ClaimTypes.Email, user.Email),
+                //new(ClaimTypes.Role,)
                 new("Id", user.Id),
                 new("Email", user.Email),
                 new("Role", role)
@@ -143,6 +162,7 @@ namespace MyFood.Controllers
 
         //Roles Generation and Admin Setup
         [HttpGet]
+        [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GenerateRoles()
         {
