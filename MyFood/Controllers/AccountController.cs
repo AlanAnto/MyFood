@@ -1,10 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.Tokens;
-using MyFood.Models.ResponseModels;
-using System.Data;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
+﻿using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace MyFood.Controllers
 {
@@ -32,7 +28,10 @@ namespace MyFood.Controllers
             _configuration = configuration;
         }
 
+        //User Login
         [HttpPost("Login")]
+        [ProducesResponseType(typeof(Nullable),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Login(LoginModel model)
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
@@ -57,7 +56,10 @@ namespace MyFood.Controllers
             });
         }
 
+        // Register User
         [HttpPost("Register")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register(RegisterModel model)
         {
             var user = new ApplicationUser()
@@ -77,29 +79,28 @@ namespace MyFood.Controllers
             return BadRequest();
         }
 
+        //Updating User Details
         [HttpPut("Update")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(UpdateModel model)
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-                return NotFound();
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByNameAsync(userName);
             user.FirstName = model.FirstName;
             user.LastName = model.LastName;
-            user.Email = model.Email;
             user.PhoneNumber = model.PhoneNumber;
+            _userManager.SetEmailAsync(user, model.Email);
             await _db.SaveChangesAsync();
             return Ok(user);
         }
 
-
+        //Deleting User Account
         [HttpDelete("DeleteUser")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete()
         {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null)
-            {
-                return NotFound();
-            }
+            var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var user = await _userManager.FindByNameAsync(userName);
             var orders = await _db.Orders.Where(m => m.UserId == user.Id).ToListAsync();
             var foodOrders = await _db.FoodOrders.Where(m => m.UserId == user.Id).ToListAsync();
             _db.RemoveRange(orders);
@@ -109,6 +110,7 @@ namespace MyFood.Controllers
             return Ok();
         }
 
+        //Token Generation
         private async Task<string> GenerateToken(ApplicationUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
@@ -116,6 +118,8 @@ namespace MyFood.Controllers
 
             var claims = new Claim[]
             {
+                new(ClaimTypes.NameIdentifier, user.UserName),
+                new(ClaimTypes.Email, user.Email),
                 new("Id", user.Id),
                 new("Email", user.Email),
                 new("Role", role)
@@ -137,7 +141,9 @@ namespace MyFood.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        //Roles Generation and Admin Setup
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GenerateRoles()
         {
             await _roleManager.CreateAsync(new IdentityRole() { Name = "Admin" });
@@ -152,7 +158,7 @@ namespace MyFood.Controllers
             };
             var res = await _userManager.CreateAsync(user, "Admin@123");
             await _userManager.AddToRoleAsync(user, "Admin");
-            return Ok("Data generated");
+            return Ok("Roles and Admin Generated");
         }
     }
 }

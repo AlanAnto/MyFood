@@ -7,12 +7,14 @@ import { AuthenticationLayoutComponent } from './authentication-layout.component
 import { PublicModule } from '../public/public.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistrationComponent,
-    AuthenticationLayoutComponent
+    AuthenticationLayoutComponent,
+    LogoutComponent
   ],
   imports: [
     CommonModule,
@@ -20,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     PublicModule,
     FormsModule,
     HttpClientModule
-  ]
+  ],
+  exports: []
 })
 export class AuthenticationModule { }

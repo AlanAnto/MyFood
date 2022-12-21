@@ -11,8 +11,10 @@
             _db = db;
         }
 
-        // GET: api/Foods
-        [HttpGet]
+        // GET : Foods
+        [HttpGet("Menu")]
+        [ProducesResponseType(typeof(IEnumerable<Food>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
         {
           if (_db.Foods == null)
@@ -22,13 +24,15 @@
             return await _db.Foods.ToListAsync();
         }
 
-        // GET: api/Foods/5
+        // GET : Food/id
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Food),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Nullable), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Food>> GetFood(int id)
         {
           if (_db.Foods == null)
           {
-              return NotFound();
+              return NotFound();    
           }
             var food = await _db.Foods.FindAsync(id);
 
@@ -40,9 +44,8 @@
             return food;
         }
 
-        // PUT: api/Foods/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        // PUT: Food/id
+        [HttpPut("Edit/{id}")]
         public async Task<IActionResult> PutFood(int id, Food food)
         {
             if (id != food.Id)
@@ -72,8 +75,9 @@
         }
 
         // POST: api/Foods
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
+        [HttpPost("AddFood")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<Food>> PostFood(Food food)
         {
           if (_db.Foods == null)

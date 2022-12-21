@@ -21,8 +21,14 @@ namespace MyFood.Controllers
         }
 
         [HttpGet("ViewUsers")]
+        [ProducesResponseType(typeof(IEnumerable<ApplicationUser>),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ApplicationUser>>> ViewUsers()
         {
+            if (_db.Foods == null)
+            {
+                return NotFound();
+            }
             return await _db.Users.ToListAsync();
         }
         [HttpPost("AddLocation")]
@@ -30,7 +36,6 @@ namespace MyFood.Controllers
         {
             await _db.Locations.AddAsync(new Location()
             {
-
                 LocationName = location,
             });
             await _db.SaveChangesAsync();
