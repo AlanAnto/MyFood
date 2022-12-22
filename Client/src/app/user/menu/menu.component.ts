@@ -9,11 +9,6 @@ import { UserService } from '../services/user.service';
 })
 export class MenuComponent {
   menu : any;
-  food = {
-    id:0,
-    quantity:0,
-    price:0.0
-  }
   constructor (private userService:UserService){}
   
   ngOnInit(){
@@ -22,14 +17,4 @@ export class MenuComponent {
       this.menu = res.data;
     })
   }  
-
-  handleAddToCart(id:number,quantity:any,price:number){
-    console.log(quantity);
-    this.food.id = id;
-    // this.food.quantity = quantity;
-    this.food.price = price;
-    // this.userService.addToCart(this.food).subscribe(res =>{
-    //   console.log(res);
-    // })
-  }
 }

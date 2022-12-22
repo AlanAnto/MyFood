@@ -17,8 +17,8 @@ export class UserService {
     return this.http.post(`${StaticDetails.API_URL}/FoodOrder/PlaceToCart`,data)
   }
 
- getFood(id:number){
-  return this.http.get(`${StaticDetails.API_URL}/Food/${id}`)
- }
+  getFood(id:number){
+    return this.http.get(`${StaticDetails.API_URL}/Food/GetFood/${id}`)
+  }
 
 }

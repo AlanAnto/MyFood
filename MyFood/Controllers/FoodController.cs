@@ -30,7 +30,7 @@
         }
 
         // GET : Food/id
-        [HttpGet("{id}")]
+        [HttpGet("GetFood/{id}")]
         [ProducesResponseType(typeof(Food),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Food>> GetFood(int id)

@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path:'user',component:UserLayoutComponent,children:[
       {path:'menu',component:MenuComponent},
-      {path:'fooditem',component:FooditemComponent}
+      {path:'fooditem/:id',component:FooditemComponent}
     ]
   }
 ];
