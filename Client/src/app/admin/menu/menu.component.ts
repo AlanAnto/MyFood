@@ -14,7 +14,7 @@ export class MenuComponent {
   ngOnInit(){
     this.adminService.getMenu().subscribe((res:any)=>{
       console.log(res);
-      this.menu = res;
+      this.menu = res.data;
     })
   }  
 }

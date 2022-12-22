@@ -22,7 +22,7 @@ export class LoginComponent {
         console.log(role);
         console.log(localStorage.getItem('token'));
         if(role=="User"){
-          this.route.navigate(["/home"]);
+          this.route.navigate(["#"]);
         }
         else if(role=="Admin"){
           this.route.navigate(["admin/home"]);

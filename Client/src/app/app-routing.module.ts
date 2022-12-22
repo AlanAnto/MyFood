@@ -18,6 +18,7 @@ const routes: Routes = [
     loadChildren: () => import('./authentication/authentication-routing.module')
     .then(m => m.AuthenticationRoutingModule) 
   },
+  
 ];
 
 @NgModule({

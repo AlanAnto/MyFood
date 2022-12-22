@@ -8,6 +8,7 @@ import { AuthenticationModule } from './authentication/authentication.module';
 import { PublicModule } from './public/public.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHttpInterceptor } from 'src/helpers/interceptors/jwtHttpInterceptor';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { JwtHttpInterceptor } from 'src/helpers/interceptors/jwtHttpInterceptor'
     HttpClientModule,
     AdminModule,
     AuthenticationModule,
-    PublicModule
+    PublicModule,
+    UserModule
   ],
   providers: [
     { 

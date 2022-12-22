@@ -53,7 +53,7 @@
             };
             await _db.AddAsync(orderItem);
             await _db.SaveChangesAsync();
-            return Ok(model);
+            return Ok();
         }
 
         //Remove from Cart

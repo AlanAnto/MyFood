@@ -46,7 +46,11 @@
                 return NotFound();
             }
 
-            return food;
+            return Ok(new ResponseModel<Food>()
+            {
+                Success = true,
+                Data = food,
+            });
         }
 
         // GET : Food/Name
