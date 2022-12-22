@@ -31,6 +31,6 @@ export class AdminService {
   }
 
   addLocation(data:any){
-    return this.http.post(`${StaticDetails.API_URL}/Admin/AddLocation`,data);
+    return this.http.post(`${StaticDetails.API_URL}/Admin/${data}`,data);
   }
 }

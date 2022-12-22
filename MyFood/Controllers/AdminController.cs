@@ -19,8 +19,8 @@
         }
 
         [HttpGet("ViewUsers")]
-        [ProducesResponseType(typeof(IEnumerable<ApplicationUser>),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<ApplicationUser>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(Nullable), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ApplicationUser>>> ViewUsers()
         {
             if (_db.Users == null)
@@ -43,7 +43,7 @@
             return Ok(allUsers);
         }
 
-        [HttpPost("AddLocation")]
+        [HttpPost("{location}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> AddLocation(string location)
         {

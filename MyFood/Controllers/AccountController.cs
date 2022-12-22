@@ -72,9 +72,13 @@
             await _userManager.AddToRoleAsync(user, "User");
             if (res.Succeeded)
             {
-                return Ok(model);
+                return Ok();
             }
-            return BadRequest();
+            return BadRequest(new ResponseModel<string>()
+            {
+                Success = false,
+                Message = "Email already exists",
+            });
         }
 
         //Get User Details

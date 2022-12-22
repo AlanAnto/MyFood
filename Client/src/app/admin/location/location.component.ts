@@ -11,7 +11,7 @@ export class LocationComponent {
   constructor(private adminService:AdminService){}
 
   handleAddLocation(form:any){
-    this.adminService.addLocation(form.value).subscribe(res =>{
+    this.adminService.addLocation(form.value.location).subscribe(res =>{
       console.log(res);
     })
   }

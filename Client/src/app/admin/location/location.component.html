@@ -4,9 +4,9 @@
             <form #form="ngForm" (ngSubmit)="handleAddLocation(form)" class="mt-5 bg-light " >
                 <div>
                 <label class="form-label "><h3>Add Location</h3></label>
-                <input  id="Location" type="text"ngModel #Location="ngModel" name="Location"  class="form-control" type="text" required >
-                <div class="text-danger mt-2" *ngIf="Location.errors && Location.touched">
-                    <div *ngIf="Location.errors?.['required']">Location is required</div>
+                <input  id="location" type="text" ngModel #location="ngModel" name="location"  class="form-control" required >
+                <div class="text-danger mt-2" *ngIf="location.errors && location.touched">
+                    <div *ngIf="location.errors?.['required']">Location is required</div>
                 </div>
                 </div>
                 <div class="mt-4 d-grid gap-4 col-3 row">

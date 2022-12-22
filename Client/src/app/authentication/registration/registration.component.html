@@ -30,9 +30,9 @@
                 </div>
                 <div>
                     <label for="phone">Phone Number</label>
-                    <input type="number" id="phone" name="phone" class="form-control" ngModel #phone="ngModel" required minlength="10" maxlength="10">
-                    <div class="text-danger mt-2" *ngIf="phone.errors && phone.touched">
-                        <div *ngIf="phone.errors?.['required']">Phone Number is required</div>
+                    <input type="text" id="phone" name="phoneNumber" class="form-control" ngModel #phoneNumber="ngModel" required minlength="4" maxlength="12">
+                    <div class="text-danger mt-2" *ngIf="phoneNumber.errors && phoneNumber.touched">
+                        <div *ngIf="phoneNumber.errors?.['required']">Phone Number is required</div>
                     </div>
                 </div>
                 <div>
