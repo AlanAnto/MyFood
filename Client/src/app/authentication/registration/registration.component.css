@@ -1,40 +1,79 @@
 .container,
+
 .row {
+
   margin: 0;
+
   padding: 0;
+
   width: 100vw;
+
   max-width: 100%;
+
   background-color: rgb(187 196 203);
+
 }
+
+
 
 .card {
-  margin-top: 70px;
+
+  margin-top: 90px;
+
   margin-bottom: 70px;
+
   border-radius: 20px;
+
 }
 
-.col-sm-10 {
-  background-color: rgb(201, 191, 191);
+
+
+.col-sm-10{
+
+  background-color: rgb(183, 176, 176);
+
   background-image: url("/assets/images/register.jpg");
+
   background-repeat: no-repeat;
-  object-fit: cover;
-  background-size: 90vw 100vh;
+
+  object-fit:cover;
+
+  background-size: 90vw 100%;
+
   margin-left: 90px;
+
   margin-right: 80px;
+
   border-radius: 20px;
+
   display: flex;
+
   align-items: flex-end;
+
 }
+
+
 
 .col-sm-6 {
+
   margin-top: 10px;
+
   background-color: rgba(0, 0, 0, 0.3);
+
   align-items: center;
-  color: white;
+
+  color: rgb(216, 207, 207);
+
 }
 
+
+
 .form-control {
+
   width: 300px;
+
   background-color: rgba(0, 0, 0, 0.1);
+
   color: white;
+
 }

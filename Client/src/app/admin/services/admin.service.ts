@@ -31,4 +31,9 @@ export class AdminService {
   addLocation(data:any){
     return this.http.post(`${StaticDetails.API_URL}/Admin/${data}`,data);
   }
+
+  deleteFood(data:any){
+    console.log(data);
+    return this.http.delete(`${StaticDetails.API_URL}/Food/DeleteFood/${data}`);
+  }
 }

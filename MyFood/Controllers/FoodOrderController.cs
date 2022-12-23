@@ -16,6 +16,7 @@
 
         //Show Cart
         [HttpGet("GetCart")]
+        [Authorize]
         [ProducesResponseType(typeof(IEnumerable<FoodOrder>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<IEnumerable<FoodOrder>>> GetCart()
@@ -32,6 +33,7 @@
 
         //Place to Cart
         [HttpPost("PlaceToCart")]
+        [Authorize]
         [ProducesResponseType(typeof(FoodOrder),StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> PlaceFoodToCart(FoodOrderModel model)
@@ -58,6 +60,7 @@
 
         //Remove from Cart
         [HttpDelete("RemoveFromCart")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> RemoveFromCart(int id)
         {

@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { FooditemComponent } from './fooditem/fooditem.component';
 import { UserNavbarComponent } from './user-navbar/user-navbar.component';
 import { HomeComponent } from './home/home.component';
+import { CartComponent } from './cart/cart.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HomeComponent } from './home/home.component';
     FooditemComponent,
     UserNavbarComponent,
     HomeComponent,
+    CartComponent,
   ],
   imports: [
     CommonModule,

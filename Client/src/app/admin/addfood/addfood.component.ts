@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 
 @Component({
@@ -8,10 +9,9 @@ import { AdminService } from '../services/admin.service';
 })
 export class AddfoodComponent {
 
-  availabilitytrue = true;
   availability:any;
   foodType:number = 0;
-  constructor(private adminService:AdminService){}
+  constructor(private adminService:AdminService, private route:Router){}
 
   handleAddFood(form:any){
     this.availability = form.value.availability === 'true';
@@ -21,6 +21,7 @@ export class AddfoodComponent {
     console.log(form.value);
     this.adminService.addFood(form.value).subscribe(res =>{
       console.log(res);
+      this.route.navigate(["/admin/menu"]);
     })
   }
 }

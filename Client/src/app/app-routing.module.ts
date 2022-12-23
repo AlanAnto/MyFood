@@ -11,7 +11,8 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./public/public-routing.module')
-    .then(m => m.PublicRoutingModule) 
+    .then(m => m.PublicRoutingModule) ,
+    
   },
   { 
     path: 'authentication', 

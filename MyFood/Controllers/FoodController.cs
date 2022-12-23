@@ -32,7 +32,7 @@
 
         // GET : Food/id
         [HttpGet("GetFood/{id}")]
-        [AllowAnonymous]
+        [Authorize]
         [ProducesResponseType(typeof(Food),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Food>> GetFood(int id)
@@ -87,13 +87,15 @@
 
         // PUT: Food/id
         [HttpPut("Edit/{id}")]
+        [Authorize]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> PutFood(int id, Food food)
         {
             if (id != food.Id)
             {
                 return BadRequest();
             }
-
             _db.Entry(food).State = EntityState.Modified;
 
             try
@@ -112,11 +114,12 @@
                 }
             }
 
-            return NoContent();
+            return Ok();
         }
 
         // POST: api/Foods
         [HttpPost("AddFood")]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<ActionResult<Food>> AddFood(Food food)
@@ -131,7 +134,10 @@
         }
 
         // DELETE: api/Foods/5
-        [HttpDelete("{id}")]
+        [HttpDelete("DeleteFood/{id}")]
+        [Authorize]
+        [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteFood(int id)
         {
             if (_db.Foods == null)
@@ -143,11 +149,9 @@
             {
                 return NotFound();
             }
-
             _db.Foods.Remove(food);
             await _db.SaveChangesAsync();
-
-            return NoContent();
+            return Ok();
         }
 
         private bool FoodExists(int id)
