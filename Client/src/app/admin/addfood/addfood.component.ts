@@ -9,14 +9,15 @@ import { AdminService } from '../services/admin.service';
 export class AddfoodComponent {
 
   availabilitytrue = true;
-  availabilityfalse = false;
   availability:any;
+  foodType:number = 0;
   constructor(private adminService:AdminService){}
 
   handleAddFood(form:any){
     this.availability = form.value.availability === 'true';
-    console.log(this.availability);
+    this.foodType = Number(form.value.foodType);
     form.value.availability = this.availability;
+    form.value.foodType = this.foodType;
     console.log(form.value);
     this.adminService.addFood(form.value).subscribe(res =>{
       console.log(res);

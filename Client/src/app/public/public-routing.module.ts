@@ -5,7 +5,7 @@ import { PublicLayoutComponent } from './public-layout.component';
 
 const routes: Routes = [
   {path:'',component:PublicLayoutComponent,children:[
-    {path:'', component:HomeComponent}
+    {path:'', component:HomeComponent},
   ]}
 ];
 

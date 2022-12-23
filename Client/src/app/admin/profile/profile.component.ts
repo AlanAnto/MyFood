@@ -1,8 +1,9 @@
-import { Component,Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AdminService } from '../services/admin.service';
 
 @Component({
-  selector: 'admin-profile',
+  selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
@@ -17,7 +18,7 @@ export class ProfileComponent {
     phoneNumber: ''
   };
 
-  constructor(private adminService:AdminService){}
+  constructor(private adminService:AdminService, private route:Router){}
 
   ngOnInit(){
     this.data = this.adminService.getProfile().subscribe((res:any)=>{
@@ -35,6 +36,9 @@ export class ProfileComponent {
     this.adminService.editProfile(form.value).subscribe(res =>
       {
         console.log(res);
+        alert("Admin Details Updated");
+        this.route.navigate(["admin/home"])
       }); 
   }
+
 }

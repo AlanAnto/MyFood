@@ -12,11 +12,11 @@ const routes: Routes = [
   {
     path:'admin',component:AdminLayoutComponent, children:[
       {path:'home',component:HomeComponent},
-      {path:'profile',component:ProfileComponent},
       {path:'users',component:UsersComponent},
       {path:'location',component:LocationComponent},
       {path:'menu',component:MenuComponent},
       {path:'addfood',component:AddfoodComponent},
+      {path:'profile',component:ProfileComponent},
     ]
   }
 ];

@@ -5,13 +5,17 @@ import { MenuComponent } from './menu/menu.component';
 import { UserLayoutComponent } from './user-layout.component';
 import { FormsModule } from '@angular/forms';
 import { FooditemComponent } from './fooditem/fooditem.component';
+import { UserNavbarComponent } from './user-navbar/user-navbar.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     MenuComponent,
     UserLayoutComponent,
-    FooditemComponent
+    FooditemComponent,
+    UserNavbarComponent,
+    HomeComponent,
   ],
   imports: [
     CommonModule,

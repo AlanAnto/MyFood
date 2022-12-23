@@ -12,12 +12,10 @@ export class AdminService {
   getProfile(){
     return this.http.get(`${StaticDetails.API_URL}/Account/GetUser`);
   }
-
   editProfile(data:any)
   {
-    return this.http.put(`${StaticDetails.API_URL}/Account/Update`,data);
+     return this.http.put(`${StaticDetails.API_URL}/Account/Update`,data);
   }
-
   getUsers(){
     return this.http.get(`${StaticDetails.API_URL}/Admin/ViewUsers`);
   }

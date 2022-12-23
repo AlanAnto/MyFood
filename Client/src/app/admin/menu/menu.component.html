@@ -1,24 +1,42 @@
-<div class="container">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Food Type</th>
-                <th>Price</th>
-                <th>Availability</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let item of menu">
-                <td><span>{{item.id}}</span></td>
-                <td><span>{{item.name}}</span></td>
-                <td><span>{{item.description}}</span></td>
-                <td><span>{{item.foodType}}</span></td>
-                <td><span>{{item.price}}</span></td>
-                <td><span>{{item.availability}}</span></td>
-            </tr>
-        </tbody>
-    </table>
+<div *ngFor="let food of menu">
+    <div class="container py-3">
+        <div class="row">
+          <div class="col-lg-8 mx-auto" style="margin-bottom: 0;">
+            <!-- List group-->
+            <ul class="list-group shadow">
+              <!-- list group item-->
+              <li class="list-group-item cards ">
+                <!-- Custom content-->
+                <div class="media align-items-lg-center ">
+                  <div class="media-body order-2 order-lg-1 d-flex flex-row">
+                    <div class="p-2">
+                         <img src="/assets/images/foodItemPlaceholder.png" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                    </div>
+                    <a href="#!"></a>
+                    <div class="p-2">
+                    <h5 class="mt-0 font-weight-bold mb-2 d-flex ">
+                        <a class="nav-link active"  [routerLink]="['/user/fooditem/',food.id]" >{{food.name}}</a>
+                        <i *ngIf="food.foodType==0"><img style="width: 25px;" src="https://img.icons8.com/color/48/null/vegetarian-food-symbol.png"/></i>
+                        <i *ngIf="food.foodType==1"><img style="width: 25px;" src="https://img.icons8.com/external-skrata-royyan-wijaya/32/null/external-beverage-gloria-weddings-skrata-royyan-wijaya-2.png"/></i>
+                        <i *ngIf="food.foodType==2"><img style="width: 25px;" src="https://img.icons8.com/color/48/null/non-vegetarian-food-symbol.png"/></i>    
+                    </h5>
+                    <p class="font-italic text-muted mb-0 small">{{food.description}}</p>
+                    <div class="d-flex align-items-center justify-content-between mt-1 p-2">
+                      <h6 class="font-weight-bold my-2">₹{{food.price}}</h6>
+                    </div>
+                    <div>
+                        <button class="btn btn-sm btn-outline-success mx-5">Edit</button>
+                        <button class="btn btn-sm btn-outline-danger">Delete</button>
+                    </div>
+                </div>
+                  </div>
+                </div>
+                <!-- End -->
+              </li>
+              <!-- End -->
+            </ul>
+            <!-- End -->
+          </div>
+        </div>
+      </div>    
 </div>

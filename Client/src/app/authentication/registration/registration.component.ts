@@ -10,13 +10,14 @@ import { AuthenticationService } from '../services/authentication.service';
 export class RegistrationComponent {
 
   message : string = '';
-  constructor(private authService:AuthenticationService,private route : Router){}
+  constructor(private authService:AuthenticationService, private route:Router){}
 
   handleRegister(form:any)
   {
     console.log(form.value);
     this.authService.register(form.value).subscribe(res => {
       console.log(res);
+      this.route.navigate(["authentication/login"]);
     });
   }
 }

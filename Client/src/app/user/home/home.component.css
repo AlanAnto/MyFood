@@ -1,0 +1,101 @@
+.bg{
+
+    background-image: url("/assets/images/img1.jpg");
+
+    background-repeat: no-repeat;
+
+    height:50vw;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    background-size: 100vw 100vh;
+
+}
+
+.search{
+
+    position: relative;
+
+    top: 250px;
+
+    height:10rem;
+
+}
+
+.app-image{
+
+    background-image: url("/assets/images/img2.jpg");
+
+    background-repeat: no-repeat;
+
+    height:80vh;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding: 0;
+
+    background-size: 100vw 80vh;
+
+}
+
+.app-align{
+
+    position: relative;
+
+    top: 50px;
+
+    height:10rem;
+
+}
+
+.logo{
+
+    display:flex;
+
+
+
+}
+
+img{
+
+    width:240px;
+
+    height:210px;
+
+}
+
+.heading{
+
+    display: flex;
+
+    justify-content: center;
+
+    color: rgb(255, 196, 0);
+
+
+
+}
+
+.text{
+
+    font-size: 600%;
+
+    font-weight: 1000;
+
+    /* font-style: italic; */
+
+    font-family:'Times New Roman', Times, serif;
+
+}
+
+.form-outline{
+
+    margin: 0;
+
+}

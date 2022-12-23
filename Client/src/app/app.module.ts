@@ -4,11 +4,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AdminModule } from './admin/admin.module';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticationModule } from './authentication/authentication.module';
 import { PublicModule } from './public/public.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtHttpInterceptor } from 'src/helpers/interceptors/jwtHttpInterceptor';
 import { UserModule } from './user/user.module';
+import { AuthenticationModule } from './authentication/authentication.module';
+import { FoodModule } from './food/food.module';
 
 @NgModule({
   declarations: [
@@ -20,9 +21,10 @@ import { UserModule } from './user/user.module';
     FormsModule,
     HttpClientModule,
     AdminModule,
+    UserModule,
     AuthenticationModule,
     PublicModule,
-    UserModule
+    FoodModule,
   ],
   providers: [
     { 

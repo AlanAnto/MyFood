@@ -13,6 +13,7 @@
 
         // GET : Foods
         [HttpGet("Menu")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<Food>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
@@ -31,6 +32,7 @@
 
         // GET : Food/id
         [HttpGet("GetFood/{id}")]
+        [AllowAnonymous]
         [ProducesResponseType(typeof(Food),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Food>> GetFood(int id)
@@ -55,18 +57,25 @@
 
         // GET : Food/Name
         [HttpGet("{Name}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [AllowAnonymous]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(IEnumerable<Food>),StatusCodes.Status200OK)]
         public async Task<ActionResult<Food>> FoodSearch(string name)
         {
             if (_db.Foods == null)
             {
-                return NotFound();
+                return NoContent();
             }
             var food = await _db.Foods.Where(m => (m.Name.Contains(name))).ToListAsync();
 
             if (food == null)
             {
-                return NotFound();
+                return NotFound(new ResponseModel<string>()
+                {
+                    Success = false,
+                    Message = "No such food item is Found",
+                });
             }
             return Ok(new ResponseModel<IEnumerable<Food>>()
             {

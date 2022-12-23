@@ -19,9 +19,9 @@ import { LogoutComponent } from './logout/logout.component';
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
-    PublicModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    PublicModule
   ],
   exports: []
 })

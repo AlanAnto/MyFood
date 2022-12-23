@@ -9,7 +9,7 @@ import { AdminService } from '../services/admin.service';
 export class UsersComponent 
 {
     users : any;
-
+    $index = 1;
   constructor (private adminService:AdminService){}
   
   ngOnInit(){
@@ -19,4 +19,4 @@ export class UsersComponent
     })
   }
   
-}
+} 

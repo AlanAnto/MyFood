@@ -5,6 +5,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { HomeComponent } from './home/home.component';
 import { PublicLayoutComponent } from './public-layout.component';
 import { FooterComponent } from './footer/footer.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,12 +17,13 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     CommonModule,
-    PublicRoutingModule
+    PublicRoutingModule,
+    FormsModule
   ],
   exports: [
     NavbarComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
   ]
 })
 export class PublicModule { }
