@@ -1,0 +1,30 @@
+.container{
+    background-image: url("/assets/images/pizza.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100%;
+}
+
+.card{
+    background-color: rgba(0,0,0,0.3);
+    align-items: center;
+    color: white;
+    width: 500px;
+    height: 100vh;
+}
+
+.btn{
+    width: 300px;
+    color : white;
+}
+
+.form-control,.form-check-input,.btn,.form-select{
+    color: white;
+    background-color: rgba(0,0,0,0.3);
+}

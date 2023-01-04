@@ -1,0 +1,26 @@
+.sty{
+    position: fixed;
+    background-color: greenyellow;
+    top: 0;
+    height: 65px;
+    width: 65px;
+    border-radius: 50px;
+    z-index: 1;
+    display: flex;
+    margin-top: 87vh;
+    margin-left: 90vW;
+    align-items: center;
+}
+.styl{
+    position: fixed;
+    background-color: greenyellow;
+    top: 0;
+    height: 65px;
+    width: 65px;
+    border-radius: 50px;
+    z-index: 1;
+    display: flex;
+    margin-top: 87vh;
+    margin-left: 84vW;
+    align-items: center;
+}

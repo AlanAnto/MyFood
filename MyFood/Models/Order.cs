@@ -12,7 +12,17 @@
         [Required]
         public double TotalPrice { get; set; }
 
-        [StringLength(100)]
-        public string? Address { get; set; } = string.Empty;
+        [Required]
+        public DateTime OrderDate { get; set; }
+
+        [Required]
+        public DateTime Date { get; set; }
+
+        [Required]
+        [StringLength(150)]
+        public string Address { get; set; }
+
+        [Required]
+        public string OrderLocation { get; set; }
     }
 }

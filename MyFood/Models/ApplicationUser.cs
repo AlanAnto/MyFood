@@ -8,5 +8,7 @@
 
         [StringLength(15)]
         public string? LastName { get; set; }
+
+        public IEnumerable<FoodOrder> FoodItemOrders { get; set; }
     }
 }

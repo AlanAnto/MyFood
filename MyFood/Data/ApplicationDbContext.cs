@@ -7,6 +7,16 @@
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.Entity<FoodOrder>()
+                .HasOne(m => m.User)
+                .WithMany(m => m.FoodItemOrders)
+                .OnDelete(DeleteBehavior.NoAction);
+        }
+
         public DbSet<ApplicationUser> Users { get; set; }
 
         public DbSet<Food> Foods { get; set; }
