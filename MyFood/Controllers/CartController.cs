@@ -3,12 +3,12 @@
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class FoodOrderController : ControllerBase
+    public class CartController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<ApplicationUser> _userManager;
 
-        public FoodOrderController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
+        public CartController(ApplicationDbContext db, UserManager<ApplicationUser> userManager)
         {
             _db = db;
             _userManager = userManager;
@@ -19,7 +19,7 @@
         [Authorize]
         [ProducesResponseType(typeof(IEnumerable<FoodOrder>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<IEnumerable<FoodOrder>>> GetCart()
+        public async Task<ActionResult<IEnumerable<CartModel>>> GetCart()
         {
             var userName = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var user = await _userManager.FindByNameAsync(userName);
@@ -28,7 +28,22 @@
             {
                 return BadRequest();
             }
-            return addedFood;
+            var cart = new List<CartModel>();
+            foreach (var item in addedFood)
+            {
+                 var foodItem = await _db.Foods.FindAsync(item.FoodId);
+                cart.Append(new CartModel()
+                {
+                    FoodName = foodItem.Name,
+                    Quantity = item.Quantity,
+                    Amount = item.Amount,
+                    OrderPlaced = item.OrderPlaced
+                });
+            }
+            return Ok( new ResponseModel<IEnumerable<CartModel>>() 
+            {
+                Data = cart,
+            });
         }
 
         //Place to Cart

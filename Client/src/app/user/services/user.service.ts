@@ -21,4 +21,8 @@ export class UserService {
     return this.http.get(`${StaticDetails.API_URL}/Food/GetFood/${id}`)
   }
 
+  getCart(){
+    return this.http.get(`${StaticDetails.API_URL}/FoodOrder/GetCart`);
+  }
+
 }

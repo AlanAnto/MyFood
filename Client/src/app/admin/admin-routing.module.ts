@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import RoleGuard, { AdminRoleGuard } from 'src/helpers/adminGuard';
 import { AddfoodComponent } from './addfood/addfood.component';
 import { AdminLayoutComponent } from './admin-layout.component';
 import { HomeComponent } from './home/home.component';
@@ -17,7 +18,7 @@ const routes: Routes = [
       {path:'menu',component:MenuComponent},
       {path:'addfood',component:AddfoodComponent},
       {path:'profile',component:ProfileComponent},
-    ]
+    ], canActivate: [AdminRoleGuard]
   }
 ];
 

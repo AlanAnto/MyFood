@@ -1,6 +1,6 @@
 ﻿namespace MyFood.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/user")]
     [ApiController]
     public class AccountController : ControllerBase
     {
@@ -24,8 +24,12 @@
             _configuration = configuration;
         }
 
-        //User Login
-        [HttpPost("Login")]
+        /// <summary>
+        /// Logs in a registered user.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns> Returns a token if login is successful </returns>
+        [HttpPost("login")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -53,8 +57,12 @@
             });
         }
 
-        // Register User
-        [HttpPost("Register")]
+        /// <summary>
+        /// Registers a user and add th euser to the database.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPost("register")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -81,8 +89,11 @@
             });
         }
 
-        //Get User Details
-        [HttpGet("GetUser")]
+        /// <summary>
+        /// Finds a user from the database.
+        /// </summary>
+        /// <returns> </returns>
+        [HttpGet]
         [Authorize]
         [ProducesResponseType(typeof(UpdateModel),StatusCodes.Status200OK)]
         public async Task<IActionResult> GetUser()
@@ -102,8 +113,12 @@
             });
         }
 
-        //Updating User Details
-        [HttpPut("Update")]
+        /// <summary>
+        /// Updates the master details of the user.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        [HttpPut]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Update(UpdateModel model)
@@ -118,8 +133,11 @@
             return Ok(user);
         }
 
-        //Deleting User Account
-        [HttpDelete("DeleteUser")]
+        /// <summary>
+        /// Deletes the user from the database.
+        /// </summary>
+        /// <returns></returns>
+        [HttpDelete]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> Delete()
@@ -135,7 +153,11 @@
             return Ok();
         }
 
-        //Token Generation
+        /// <summary>
+        /// Generates a token when a user is logging in.
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
         private async Task<string> GenerateToken(ApplicationUser user)
         {
             var roles = await _userManager.GetRolesAsync(user);
@@ -145,7 +167,7 @@
             {
                 new(ClaimTypes.NameIdentifier, user.UserName),
                 new(ClaimTypes.Email, user.Email),
-                //new(ClaimTypes.Role,)
+                new(ClaimTypes.Role,role),
                 new("Id", user.Id),
                 new("Email", user.Email),
                 new("Role", role)
@@ -167,9 +189,12 @@
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        //Roles Generation and Admin Setup
-        [HttpGet]
-        [AllowAnonymous]
+        /// <summary>
+        /// Sets up the role and Admin details in the database
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("generate")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GenerateRoles()
         {

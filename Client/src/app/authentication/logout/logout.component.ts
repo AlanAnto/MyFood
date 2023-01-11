@@ -13,7 +13,6 @@ export class LogoutComponent {
 
   handleLogout(){
     localStorage.removeItem('token');
-    alert("Logout successfull");
     this.route.navigate(["/"]);
   }
 }

@@ -11,11 +11,11 @@ export class AuthenticationService {
   
   login(data:any)
   {
-    return this.http.post(`${StaticDetails.API_URL}/Account/Login`,data);
+    return this.http.post(`${StaticDetails.API_URL}/user/login`,data);
   }
 
   register(data:any)
   {
-    return this.http.post(`${StaticDetails.API_URL}/Account/Register`,data);
+    return this.http.post(`${StaticDetails.API_URL}/user/register`,data);
   }
 }

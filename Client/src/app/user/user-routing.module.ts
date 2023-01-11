@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import RoleGuard from 'src/helpers/adminGuard';
+import { UserRoleGuard } from 'src/helpers/userGuard';
 import { CartComponent } from './cart/cart.component';
 import { FooditemComponent } from './fooditem/fooditem.component';
 import { HomeComponent } from './home/home.component';
@@ -13,7 +15,7 @@ const routes: Routes = [
       {path:'menu',component:MenuComponent},
       {path:'fooditem/:id',component:FooditemComponent},
       {path:'cart',component:CartComponent}
-    ]
+    ], canActivate: [UserRoleGuard]
   }
 ];
 

@@ -21,8 +21,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
     options.SignIn.RequireConfirmedPhoneNumber = false;
     options.SignIn.RequireConfirmedEmail = false;
     options.User.RequireUniqueEmail = true;
-}).AddEntityFrameworkStores<ApplicationDbContext>()
-.AddDefaultTokenProviders();
+}).AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
 
 builder.Services.AddAuthentication(options =>
@@ -45,6 +44,7 @@ builder.Services.AddAuthentication(options =>
         };
         Console.WriteLine();
     });
+
 
 var app = builder.Build();
 

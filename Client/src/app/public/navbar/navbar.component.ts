@@ -10,7 +10,7 @@ import jwt_decode from "jwt-decode";
 export class NavbarComponent {
   ngOnInit(){
     var token:any = localStorage.getItem('token');
-    var parsedToken = jwt_decode(token);
-    console.log(parsedToken);
+    var parsedToken : any = jwt_decode(token);
+    console.log(parsedToken.Role);
   }
 }

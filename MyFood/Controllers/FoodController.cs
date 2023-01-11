@@ -1,6 +1,6 @@
 ﻿namespace MyFood.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/foods")]
     [ApiController]
     public class FoodController : ControllerBase
     {
@@ -11,28 +11,37 @@
             _db = db;
         }
 
-        // GET : Foods
-        [HttpGet("Menu")]
+
+        /// <summary>
+        /// This method is used to display the list of all food items from the database.
+        /// </summary>
+        /// <returns>Returns a list of all food items</returns>
+        [HttpGet]
         [AllowAnonymous]
         [ProducesResponseType(typeof(IEnumerable<Food>),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<IEnumerable<Food>>> GetFoods()
+        public async Task<ActionResult<IEnumerable<Food>>> Foods()
         {
           
             if (_db.Foods == null)
             {
                  return NotFound();
             }
-            var menu =  await _db.Foods.ToListAsync();
+            var foods =  await _db.Foods.ToListAsync();
             return Ok(new ResponseModel<IEnumerable<Food>>()
             {
-                Data = menu
+                Data = foods
             });
         }
 
-        // GET : Food/id
-        [HttpGet("GetFood/{id}")]
-        [Authorize]
+
+        /// <summary>
+        /// This method is used to get the master details of food items by id.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Returns an object of Food</returns>
+        [HttpGet("{id}")]
+        [Authorize(Roles = "User")]
         [ProducesResponseType(typeof(Food),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(Nullable), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<Food>> GetFood(int id)
@@ -55,13 +64,18 @@
             });
         }
 
-        // GET : Food/Name
-        [HttpGet("{Name}")]
+
+        /// <summary>
+        ///  This method is used to get the details of food items when searched by name.
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns>Returns an object of Food</returns>
+        [HttpGet("name/{name}")]
         [AllowAnonymous]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(IEnumerable<Food>),StatusCodes.Status200OK)]
-        public async Task<ActionResult<Food>> FoodSearch(string name)
+        public async Task<ActionResult<Food>> SearchFood(string name)
         {
             if (_db.Foods == null)
             {
@@ -83,14 +97,18 @@
             });
         }
 
-        // PUT: api/Foods/5
-
-        // PUT: Food/id
-        [HttpPut("Edit/{id}")]
-        [Authorize]
+        
+        /// <summary>
+        /// This method is used to update food details.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="food"></param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> PutFood(int id, Food food)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> Foods(int id, Food food)
         {
             if (id != food.Id)
             {
@@ -117,12 +135,15 @@
             return Ok();
         }
 
-        // POST: api/Foods
-        [HttpPost("AddFood")]
-        [Authorize]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<Food>> AddFood(Food food)
+        
+        /// <summary>
+        /// This method is for adding a food to the database.
+        /// </summary>
+        /// <param name="food"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<Food>> Foods(Food food)
         {
           if (_db.Foods == null)
           {
@@ -133,9 +154,14 @@
             return CreatedAtAction("GetFood", new { id = food.Id }, food);
         }
 
-        // DELETE: api/Foods/5
-        [HttpDelete("DeleteFood/{id}")]
-        [Authorize]
+        
+        /// <summary>
+        ///  This method is for deleting a food item from the database by the id. 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(typeof(Nullable),StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> DeleteFood(int id)
@@ -153,6 +179,7 @@
             await _db.SaveChangesAsync();
             return Ok();
         }
+
 
         private bool FoodExists(int id)
         {
